@@ -11,7 +11,7 @@ License: MIT
 */
 
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/classes/FB_Post.php';
+require __DIR__ . '/classes/JC_Post.php';
 
 use JCFirebase\JCFirebase;
 
@@ -36,7 +36,7 @@ function save_post_to_firebase($post_id)
 
     if ($post->ID) {
         $mapper = new JsonMapper();
-        $fbPost = $mapper->map($post, new FB_Post($firebase, $post->ID));
+        $fbPost = $mapper->map($post, new JC_Post($firebase, $post->ID));
 
         $fbPost->save();
     }

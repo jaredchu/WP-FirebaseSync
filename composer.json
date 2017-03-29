@@ -10,6 +10,7 @@
         }
     ],
     "require": {
-        "jaredchu/firebase-model": "^1.0"
+        "jaredchu/firebase-model": "^1.0",
+        "defuse/php-encryption": "^2.0"
     }
 }

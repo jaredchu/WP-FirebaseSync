@@ -12,7 +12,7 @@ require __DIR__ . '../vendor/autoload.php';
 use JCFirebase\FirebaseModel;
 use JCFirebase\JCFirebase;
 
-class FB_Post extends FirebaseModel
+class JC_Post extends FirebaseModel
 {
     /**
      * Post ID.
