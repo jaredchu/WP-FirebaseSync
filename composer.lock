@@ -95,16 +95,16 @@
         },
         {
             "name": "jaredchu/jc-firebase-php",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jaredchu/JC-Firebase-PHP.git",
-                "reference": "5f95fa2408969fe995cef8ad6fb0361559de0a03"
+                "reference": "3e7df41b7b3c0b33ee938bf25d4a0260033502f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jaredchu/JC-Firebase-PHP/zipball/5f95fa2408969fe995cef8ad6fb0361559de0a03",
-                "reference": "5f95fa2408969fe995cef8ad6fb0361559de0a03",
+                "url": "https://api.github.com/repos/jaredchu/JC-Firebase-PHP/zipball/3e7df41b7b3c0b33ee938bf25d4a0260033502f1",
+                "reference": "3e7df41b7b3c0b33ee938bf25d4a0260033502f1",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "firebase",
                 "restful"
             ],
-            "time": "2017-01-14T05:54:58+00:00"
+            "time": "2017-03-29T12:11:44+00:00"
         },
         {
             "name": "netresearch/jsonmapper",

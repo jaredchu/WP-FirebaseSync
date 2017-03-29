@@ -12,7 +12,7 @@ $requests = array(
 		'url' => 'http://httpbin.org/get',
 		'headers' => array('Accept' => 'application/javascript'),
 	),
-	'post' => array(
+	'FBPost' => array(
 		'url' => 'http://httpbin.org/post',
 		'data' => array('mydata' => 'something'),
 	),

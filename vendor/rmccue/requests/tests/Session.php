@@ -66,7 +66,7 @@ class RequestsTest_Session extends PHPUnit_Framework_TestCase {
 			'X-Requests-Request' => 'notset',
 		);
 		$session = new Requests_Session(httpbin('/'), $session_headers);
-		$response = $session->post('/post', array('X-Requests-Request' => 'POST'), array('postdata' => 'exists'));
+		$response = $session->post('/post', array('X-Requests-Request' => 'FBPost'), array('postdata' => 'exists'));
 		$response->throw_for_status(false);
 		$this->assertEquals(200, $response->status_code);
 
@@ -74,7 +74,7 @@ class RequestsTest_Session extends PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey('X-Requests-Session', $data['headers']);
 		$this->assertEquals('BasicPOST', $data['headers']['X-Requests-Session']);
 		$this->assertArrayHasKey('X-Requests-Request', $data['headers']);
-		$this->assertEquals('POST', $data['headers']['X-Requests-Request']);
+		$this->assertEquals('FBPost', $data['headers']['X-Requests-Request']);
 	}
 
 	public function testBasicPUT() {

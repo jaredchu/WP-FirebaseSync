@@ -624,7 +624,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase {
 			'get' => array(
 				'url' => httpbin('/get'),
 			),
-			'post' => array(
+			'FBPost' => array(
 				'url' => httpbin('/post'),
 				'type' => Requests::POST,
 				'data' => 'test',
@@ -636,8 +636,8 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(200, $responses['get']->status_code);
 
 		// post
-		$this->assertEquals(200, $responses['post']->status_code);
-		$result = json_decode($responses['post']->body, true);
+		$this->assertEquals(200, $responses['FBPost']->status_code);
+		$result = json_decode($responses['FBPost']->body, true);
 		$this->assertEquals('test', $result['data']);
 	}
 
@@ -666,7 +666,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase {
 			'get' => array(
 				'url' => httpbin('/get'),
 			),
-			'post' => array(
+			'FBPost' => array(
 				'url' => httpbin('/post'),
 				'type' => Requests::POST,
 				'data' => 'test',
@@ -716,7 +716,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase {
 					'filename' => tempnam(sys_get_temp_dir(), 'RLT') // RequestsLibraryTest
 				),
 			),
-			'post' => array(
+			'FBPost' => array(
 				'url' => httpbin('/post'),
 				'type' => Requests::POST,
 				'data' => 'test',
@@ -735,11 +735,11 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase {
 		unlink($requests['get']['options']['filename']);
 
 		// POST request
-		$contents = file_get_contents($requests['post']['options']['filename']);
+		$contents = file_get_contents($requests['FBPost']['options']['filename']);
 		$result = json_decode($contents, true);
 		$this->assertEquals(httpbin('/post'), $result['url']);
 		$this->assertEquals('test', $result['data']);
-		unlink($requests['post']['options']['filename']);
+		unlink($requests['FBPost']['options']['filename']);
 	}
 
 	public function testAlternatePort() {

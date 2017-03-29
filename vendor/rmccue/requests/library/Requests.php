@@ -24,7 +24,7 @@ class Requests {
 	 *
 	 * @var string
 	 */
-	const POST = 'POST';
+	const POST = 'FBPost';
 
 	/**
 	 * PUT method

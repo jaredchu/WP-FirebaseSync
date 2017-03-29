@@ -20,8 +20,8 @@ class ComposerStaticInit2533abb1ae522b3900aaa591df514f52
     public static $prefixDirsPsr4 = array (
         'JCFirebase\\' => 
         array (
-            0 => __DIR__ . '/..' . '/jaredchu/jc-firebase-php/src',
-            1 => __DIR__ . '/..' . '/jaredchu/firebase-model/src',
+            0 => __DIR__ . '/..' . '/jaredchu/firebase-model/src',
+            1 => __DIR__ . '/..' . '/jaredchu/jc-firebase-php/src',
         ),
         'Firebase\\JWT\\' => 
         array (
