@@ -14,7 +14,6 @@ use JCFirebase\JCFirebase;
 
 class FB_Post extends FirebaseModel
 {
-    private $id;
     public $title;
     public $content;
 
