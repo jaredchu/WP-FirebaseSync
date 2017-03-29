@@ -35,9 +35,8 @@ function save_post_to_firebase($post_id)
     $post = WP_Post::get_instance($post_id);
 
     if ($post->ID) {
-        $fbPost = new FB_Post($firebase, $post->ID);
-        $fbPost->title = $post->post_title;
-        $fbPost->content = $post->post_content;
+        $mapper = new JsonMapper();
+        $fbPost = $mapper->map($post, new FB_Post($firebase, $post->ID));
 
         $fbPost->save();
     }
