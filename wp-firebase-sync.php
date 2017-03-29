@@ -9,3 +9,5 @@ Author: jaredchu
 Author URI: http://jaredchu.com/
 License: MIT
 */
+
+require __DIR__ . '/vendor/autoload.php';
