@@ -21,16 +21,17 @@ $firebaseDefaultPath = '/wordpress';
 
 global $firebase;
 if (is_null($firebase)) {
-    $firebase = JCFirebase::fromJson($firebaseURI, $jsonString, $firebaseDefaultPath);
+//    $firebase = JCFirebase::fromJson($firebaseURI, $jsonString, $firebaseDefaultPath);
 }
 
 function save_post_to_firebase($post_id)
 {
     global $firebase;
 
-    // If this is just a revision, cancel
-    if (wp_is_post_revision($post_id))
+    // Cancel if this is just a revision or firebase is not set
+    if (is_null($firebase) || wp_is_post_revision($post_id)) {
         return;
+    }
 
     $post = WP_Post::get_instance($post_id);
 

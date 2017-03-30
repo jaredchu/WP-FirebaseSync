@@ -7,7 +7,7 @@
  * Time: 11:49 PM
  */
 
-require __DIR__ . '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Defuse\Crypto\Crypto;
 use Defuse\Crypto\Key;

@@ -7,7 +7,7 @@
  * Time: 19:35
  */
 
-require __DIR__ . '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use JCFirebase\FirebaseModel;
 use JCFirebase\JCFirebase;
