@@ -30,16 +30,28 @@ class Data
         $this->encryptKey = $encryptKey;
     }
 
+    /**
+     * @param Key $key
+     * @return Data
+     */
     public static function fromKey(Key $key)
     {
         return new Data($key);
     }
 
+    /**
+     * @param $plainText
+     * @return string
+     */
     public function encrypt($plainText)
     {
         return Crypto::encrypt($plainText, $this->encryptKey);
     }
 
+    /**
+     * @param $plainText
+     * @return string
+     */
     public function decrypt($plainText)
     {
         return Crypto::decrypt($plainText, $this->encryptKey);
