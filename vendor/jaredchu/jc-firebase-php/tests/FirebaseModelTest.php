@@ -8,7 +8,7 @@
  */
 
 use JCFirebase\JCFirebase;
-use JCFirebase\Log;
+use JCFirebase\Models\Log;
 
 class FirebaseModelTest extends PHPUnit_Framework_TestCase {
 	const FIREBASE_URI = 'https://fir-php-test-c7fa2.firebaseio.com/';

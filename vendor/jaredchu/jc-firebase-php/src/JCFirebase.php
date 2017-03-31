@@ -9,6 +9,8 @@
 namespace JCFirebase;
 
 use Requests;
+use JCFirebase\Enums\RequestType;
+use JCFirebase\Enums\PrintType;
 
 /**
  * Class JCFirebase
@@ -18,51 +20,52 @@ use Requests;
 class JCFirebase
 {
     public $firebaseURI;
-    public $firebaseDefaultPath;
+
+    public $rootPath;
+
     public $requestHeader = array(
         'accept' => 'application/json',
         'contentType' => 'application/json; charset=utf-8',
         'dataType' => 'json'
     );
+
     public $requestOptions = array();
+
     /**
      * @var OAuth
      */
-    protected $auth;
+    public $auth;
 
 
     /**
      * JCFirebase constructor.
      *
      * @param $firebaseURI
-     * @param array $firebaseAuth
-     * @param string $firebaseDefaultPath
+     * @param OAuth $auth
+     * @param string $rootPath
      */
-    public function __construct($firebaseURI, $firebaseAuth = array(), $firebaseDefaultPath = '/')
+    public function __construct($firebaseURI, OAuth $auth, $rootPath = '/')
     {
         $this->firebaseURI = $firebaseURI;
-        $this->firebaseDefaultPath = $firebaseDefaultPath;
-        $this->setAuth($firebaseAuth);
+        $this->rootPath = $rootPath;
+        $this->auth = $auth;
     }
 
 
     /**
      * @param $firebaseURI
      * @param $jsonString
-     * @param string $firebaseDefaultPath
+     * @param string $rootPath
      * @return JCFirebase
      * @throws \Exception
      */
-    public static function fromJson($firebaseURI, $jsonString, $firebaseDefaultPath = '/')
+    public static function fromJson($firebaseURI, $jsonString, $rootPath = '/')
     {
         if ($jsonString) {
             $serviceAccount = $jsonString->client_email;
             $privateKey = $jsonString->private_key;
 
-            return new self($firebaseURI, array(
-                'key' => $privateKey,
-                'iss' => $serviceAccount
-            ), $firebaseDefaultPath);
+            return new self($firebaseURI, new OAuth($privateKey, $serviceAccount), $rootPath);
         } else {
             throw new \Exception("can't get data from key file");
         }
@@ -71,12 +74,12 @@ class JCFirebase
     /**
      * @param $firebaseURI
      * @param $keyFile
-     * @param string $firebaseDefaultPath
+     * @param string $rootPath
      *
      * @return JCFirebase
      * @throws \Exception
      */
-    public static function fromKeyFile($firebaseURI, $keyFile, $firebaseDefaultPath = '/')
+    public static function fromKeyFile($firebaseURI, $keyFile, $rootPath = '/')
     {
         $jsonString = null;
         try {
@@ -85,14 +88,7 @@ class JCFirebase
             $jsonString = json_decode(Requests::get($keyFile));
         }
 
-        return self::fromJson($firebaseURI, $jsonString, $firebaseDefaultPath);
-    }
-
-    public function setAuth($firebaseServiceAccount)
-    {
-        if (isset($firebaseServiceAccount['key']) && isset($firebaseServiceAccount['iss'])) {
-            $this->auth = new OAuth($firebaseServiceAccount['key'], $firebaseServiceAccount['iss']);
-        }
+        return self::fromJson($firebaseURI, $jsonString, $rootPath);
     }
 
     public function getPathURI($path = '', $print = '')
@@ -113,16 +109,16 @@ class JCFirebase
             throw new \Exception("firebase URI is required");
         }
 
-        if (strpos($this->firebaseDefaultPath, "/") !== 0) {
+        if (strpos($this->rootPath, "/") !== 0) {
             throw new \Exception("firebase default path must contain /");
         }
 
-        $pathURI = $this->firebaseURI . $this->firebaseDefaultPath . $path . ".json";
+        $pathURI = $this->firebaseURI . $this->rootPath . $path . ".json";
 
         //set query data
         $queryData = array();
         if (!empty($print)) {
-            $queryData[JCFirebaseOption::OPTION_PRINT] = $print;
+            $queryData[Option::_PRINT] = $print;
         }
         if (!empty($queryData)) {
             $pathURI = $pathURI . '?' . http_build_query($queryData);
@@ -137,7 +133,7 @@ class JCFirebase
     {
         return Requests::get(
             $this->getPathURI($path) . '?' . http_build_query(array(
-                JCFirebaseOption::OPTION_SHALLOW => JCFirebaseOption::SHALLOW_TRUE
+                Option::_SHALLOW => 'true'
             )),
             $this->requestHeader,
             $this->addDataToRequest($options)
@@ -206,16 +202,29 @@ class JCFirebase
             $this->addDataToRequest($options));
     }
 
+    /**
+     * Function that check firebase authencation
+     * and configuration valid or not
+     *
+     * @return bool
+     */
+    public function isValid()
+    {
+        return $this->get(null, array(
+                Option::_PRINT => PrintType::SILENT
+            ))->status_code == 204;
+    }
+
     protected function refreshToken()
     {
         $this->requestHeader['Authorization'] = 'Bearer ' . $this->auth->getAccessToken();
     }
 
-    protected function addDataToPathURI($path = '', $options = array(), $reqType = JCFirebaseOption::REQ_TYPE_GET)
+    protected function addDataToPathURI($path = '', $options = array(), $reqType = RequestType::GET)
     {
         $print = '';
         if (isset($options['print'])) {
-            if (JCFirebaseOption::isAllowPrint($reqType, $options['print'])) {
+            if (Option::isAllowPrint($reqType, $options['print'])) {
                 $print = $options['print'];
             }
         }

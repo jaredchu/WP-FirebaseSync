@@ -1,16 +1,16 @@
 {
-    "name": "jaredchu/wp-firebase-sync",
-    "description": "Plugin that allow WordPress to sync Post data with Firebase in real time.",
-    "type": "wordpress-plugin",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jared Chu",
-            "email": "me@jaredchu.com"
-        }
-    ],
-    "require": {
-        "jaredchu/firebase-model": "^1.0",
-        "defuse/php-encryption": "^2.0"
+  "name": "jaredchu/wp-firebase-sync",
+  "description": "Plugin that allow WordPress to sync Post data with Firebase in real time.",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jared Chu",
+      "email": "me@jaredchu.com"
     }
+  ],
+  "require": {
+    "jaredchu/jc-firebase-php": "^1.0",
+    "defuse/php-encryption": "^2.0"
+  }
 }
