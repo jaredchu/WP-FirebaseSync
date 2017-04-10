@@ -14,6 +14,8 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/classes/JC_Post.php';
 
 use JCFirebase\JCFirebase;
+use JCFirebase\Models\FirebaseModel;
+use JCFirebase\OAuth as FBAuth;
 
 /**
  * Register menu
@@ -52,16 +54,8 @@ function wfs_settings_init()
     );
 
     add_settings_field(
-        'wfs_firebase_email',
-        __('Firebase account email:', 'wp-firebase-sync'),
-        'wfs_text_field_1_render',
-        'pluginPage',
-        'wfs_pluginPage_section'
-    );
-
-    add_settings_field(
-        'wfs_firebase_private_key',
-        __('Firebase account private key:', 'wp-firebase-sync'),
+        'wfs_firebase_json_key',
+        __('Firebase private key in JSON format:', 'wp-firebase-sync'),
         'wfs_text_field_2_render',
         'pluginPage',
         'wfs_pluginPage_section'
@@ -79,25 +73,13 @@ function wfs_text_field_0_render()
 
 }
 
-
-function wfs_text_field_1_render()
-{
-
-    $options = get_option('wfs_settings');
-    ?>
-    <input type='text' name='wfs_settings[wfs_firebase_email]'
-           value='<?php echo $options['wfs_firebase_email']; ?>'>
-    <?php
-
-}
-
 function wfs_text_field_2_render()
 {
 
     $options = get_option('wfs_settings');
     ?>
     <textarea cols='40' rows='5'
-              name='wfs_settings[wfs_firebase_private_key]'><?php echo $options['wfs_firebase_private_key']; ?></textarea>
+              name='wfs_settings[wfs_firebase_json_key]'><?php echo $options['wfs_firebase_json_key']; ?></textarea>
     <?php
 
 }
@@ -105,9 +87,32 @@ function wfs_text_field_2_render()
 
 function wfs_settings_section_callback()
 {
+    $options = get_option('wfs_settings');
 
-    echo __('Enter your firebase URI & service account information', 'wp-firebase-sync');
+    if (isset($options['wfs_firebase_uri']) && isset($options['wfs_firebase_json_key'])) {
+        $firebaseURI = $options['wfs_firebase_uri'];
+        $jsonKey = $options['wfs_firebase_json_key'];
 
+        echo "<p>";
+        if (empty($firebaseURI) && empty($firebaseEmail) && empty($jsonKey)) {
+            echo __('Enter your firebase URI & service account information', 'wp-firebase-sync');
+        } else {
+            try {
+                $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
+
+                if ($firebase->isValid()) {
+                    echo "<span class='notice notice-success'>Firebase connect succeed</span>";
+                } else {
+                    echo "<span class='notice notice-error'>Firebase connect failed</span>";
+                }
+            } catch (Exception $exception) {
+                $errorMessage = $exception->getMessage();
+                echo "<span class='notice notice-error'>$errorMessage</span>";
+            }
+
+        }
+        echo "</p>";
+    }
 }
 
 
@@ -133,15 +138,6 @@ function wfs_options_page()
 /**
  * Config firebase
  */
-
-$firebaseURI = '';
-$jsonString = '';
-$firebaseDefaultPath = '/wordpress';
-
-global $firebase;
-if (is_null($firebase)) {
-//    $firebase = JCFirebase::fromJson($firebaseURI, $jsonString, $firebaseDefaultPath);
-}
 
 function save_post_to_firebase($post_id)
 {

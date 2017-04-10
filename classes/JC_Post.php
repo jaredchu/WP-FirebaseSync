@@ -9,11 +9,13 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use JCFirebase\FirebaseModel;
+use JCFirebase\Models\FirebaseModel;
 use JCFirebase\JCFirebase;
 
 class JC_Post extends FirebaseModel
 {
+    public static $nodeName = 'posts';
+
     /**
      * Post ID.
      *
