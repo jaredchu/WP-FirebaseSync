@@ -1,2 +1,2 @@
 # WP-FirebaseSync
-Plugin that allow WordPress to sync Post data with Firebase in real time
+This plugin is under development. please **DO NOT** install on your prodution sites.
