@@ -12,13 +12,24 @@
 `$ composer require jaredchu/jc-firebase-php`
 
 ## Simple usage
-Create [service account](https://cloud.google.com/iam/docs/service-accounts) to get `json key file`.
+Generate a [private key in JSON format](https://cloud.google.com/storage/docs/authentication#service_accounts).
+<img src="http://i.imgur.com/d4pBQqB.png">
+
+#### Check Firebase credential
+```php
+use JCFirebase\JCFirebase;
+
+$firebaseURI = "https://<DATABASE_NAME>.firebaseio.com";
+$jsonKeyFile = "path/to/serviceAccountKey.json";
+
+$firebase = new JCFirebase::fromKeyFile( $firebaseURI, $jsonKeyFile );
+if( $firebase->isValid() ){
+    //do something
+}
+```
 
 #### GET - Reading Data
 ```php
-use JCFirebase\JCFirebase;
-$firebase = new JCFirebase::fromKeyFile( $firebaseURI, $jsonKeyFile );
-
 $response = $firebase->get('user');
 echo $response->success;
 echo $response->body;
@@ -54,6 +65,10 @@ echo $response->body;
 #### Create Firebase connector
 ```php
 use JCFirebase\JCFirebase;
+
+$firebaseURI = "https://<DATABASE_NAME>.firebaseio.com";
+$jsonKeyFile = "path/to/serviceAccountKey.json";
+
 $firebase = new JCFirebase::fromKeyFile( $firebaseURI, $jsonKeyFile );
 ```
 #### Extend your Model with FirebaseModel
@@ -112,4 +127,4 @@ $log->delete();
 5. Submit a pull request.
 
 ## License
-[MIT License](https://github.com/jaredchu/JC-Firebase-PHP/blob/master/README.md)
+[MIT License](https://github.com/jaredchu/JC-Firebase-PHP/blob/master/LICENSE)

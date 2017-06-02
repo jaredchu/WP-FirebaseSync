@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Requests' => array($vendorDir . '/rmccue/requests/library'),
+    'Purl' => array($vendorDir . '/jwage/purl/src'),
+    'Pdp\\' => array($vendorDir . '/jeremykendall/php-domain-parser/library'),
     'JsonMapper' => array($vendorDir . '/netresearch/jsonmapper/src'),
 );
