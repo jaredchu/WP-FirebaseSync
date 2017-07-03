@@ -143,6 +143,11 @@ function save_post_to_firebase($post_id)
 {
     global $firebase;
 
+    $options = get_option('wfs_settings');
+    $firebaseURI = $options['wfs_firebase_uri'];
+    $jsonKey = $options['wfs_firebase_json_key'];
+    $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
+
     // Cancel if this is just a revision or firebase is not set
     if (is_null($firebase) || wp_is_post_revision($post_id)) {
         return;
