@@ -100,7 +100,7 @@ function wfs_settings_section_callback()
                 $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
 
                 if ($firebase->isValid()) {
-                    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE']);
+                    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE'] . $options['wfs_firebase_json_key']);
                     EncryptCache::add('firebase', $firebase);
                     echo "<span class='notice notice-success'>Firebase connect succeed</span>";
                 } else {
@@ -142,12 +142,12 @@ function wfs_options_page()
 
 function save_post_to_firebase($post_id)
 {
-    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE']);
+    $options = get_option('wfs_settings');
+    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE'] . $options['wfs_firebase_json_key']);
 
     if (EncryptCache::exists('firebase')) {
         $firebase = EncryptCache::fetch('firebase', JCFirebase::class);
     } else {
-        $options = get_option('wfs_settings');
         $firebaseURI = $options['wfs_firebase_uri'];
         $jsonKey = $options['wfs_firebase_json_key'];
         $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
