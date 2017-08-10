@@ -8,24 +8,18 @@
 
 namespace JCFirebase;
 
-use JCFirebase\Enums\RequestType;
 use JCFirebase\Enums\PrintType;
+use JCFirebase\Enums\RequestType;
 
 class Option
 {
-    const _SHALLOW = 'shallow';
-    const _PRINT = 'print';
+    const OPT_SHALLOW = 'shallow';
+    const OPT_PRINT = 'print';
 
     public static function isAllowPrint($reqType, $printType)
     {
-        if ($printType == PrintType::PRETTY) {
-            return true;
-        }
-
-        if ($printType == PrintType::SILENT) {
-            if ($reqType == RequestType::DELETE) {
-                return false;
-            }
+        if ($printType == PrintType::SILENT && $reqType == RequestType::DELETE) {
+            return false;
         }
 
         return true;

@@ -47,6 +47,7 @@ class ComposerStaticInit2533abb1ae522b3900aaa591df514f52
         'JC\\' => 
         array (
             0 => __DIR__ . '/..' . '/jaredchu/jc-request/src',
+            1 => __DIR__ . '/..' . '/jaredchu/simple-cache/src',
         ),
         'JCFirebase\\' => 
         array (

@@ -8,8 +8,8 @@
 
 namespace JCFirebase\Models;
 
-use JsonMapper;
 use JCFirebase\JCFirebase;
+use JsonMapper;
 
 /**
  * Class FirebaseModel
@@ -46,6 +46,11 @@ class FirebaseModel
     public static function getNodeName()
     {
         return static::$nodeName ?: strtolower((new \ReflectionClass(get_called_class()))->getShortName());
+    }
+
+    public static function setNodeName($nodeName)
+    {
+        static::$nodeName = $nodeName;
     }
 
     /**

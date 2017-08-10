@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0355651cf063339a08107bde0396d8ed",
+    "content-hash": "dcf45b4fea28494484da021088d4cd5d",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -114,16 +114,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.2.3",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
+                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
-                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
                 "shasum": ""
             },
             "require": {
@@ -133,8 +133,11 @@
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "^4.0",
+                "phpunit/phpunit": "^4.0 || ^5.0",
                 "psr/log": "^1.0"
+            },
+            "suggest": {
+                "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
@@ -172,7 +175,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-02-28T22:50:30+00:00"
+            "time": "2017-06-22T18:50:49+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -292,16 +295,16 @@
         },
         {
             "name": "jaredchu/jc-firebase-php",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jaredchu/JC-Firebase-PHP.git",
-                "reference": "57d81c526638ccd47c06d1de3378f5970beb89b8"
+                "reference": "73aedc5fa6c7afefe5f3faa11a2a25e8f4f6190b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jaredchu/JC-Firebase-PHP/zipball/57d81c526638ccd47c06d1de3378f5970beb89b8",
-                "reference": "57d81c526638ccd47c06d1de3378f5970beb89b8",
+                "url": "https://api.github.com/repos/jaredchu/JC-Firebase-PHP/zipball/73aedc5fa6c7afefe5f3faa11a2a25e8f4f6190b",
+                "reference": "73aedc5fa6c7afefe5f3faa11a2a25e8f4f6190b",
                 "shasum": ""
             },
             "require": {
@@ -333,7 +336,7 @@
                 "firebase",
                 "restful"
             ],
-            "time": "2017-06-02T03:59:48+00:00"
+            "time": "2017-08-03T09:59:19+00:00"
         },
         {
             "name": "jaredchu/jc-request",
@@ -380,6 +383,49 @@
                 "request"
             ],
             "time": "2017-06-02T03:43:59+00:00"
+        },
+        {
+            "name": "jaredchu/simple-cache",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jaredchu/Simple-Cache.git",
+                "reference": "9b4a2a0603df6082767df661c46dbe41d9123c29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jaredchu/Simple-Cache/zipball/9b4a2a0603df6082767df661c46dbe41d9123c29",
+                "reference": "9b4a2a0603df6082767df661c46dbe41d9123c29",
+                "shasum": ""
+            },
+            "require": {
+                "netresearch/jsonmapper": "^1.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JC\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jared Chu",
+                    "email": "me@jaredchu.com"
+                }
+            ],
+            "description": "Simple PHP object caching base on temp file",
+            "keywords": [
+                "cache",
+                "php"
+            ],
+            "time": "2017-08-10T02:51:26+00:00"
         },
         {
             "name": "jeremykendall/php-domain-parser",
@@ -476,16 +522,16 @@
         },
         {
             "name": "netresearch/jsonmapper",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "8d0b6d5b9f5940757b44bc0ee2f930aae6d4a6c7"
+                "reference": "899cf21e40f35b664b5366f7710d20d9d8abf7b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/8d0b6d5b9f5940757b44bc0ee2f930aae6d4a6c7",
-                "reference": "8d0b6d5b9f5940757b44bc0ee2f930aae6d4a6c7",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/899cf21e40f35b664b5366f7710d20d9d8abf7b0",
+                "reference": "899cf21e40f35b664b5366f7710d20d9d8abf7b0",
                 "shasum": ""
             },
             "require-dev": {
@@ -511,7 +557,7 @@
                 }
             ],
             "description": "Map nested JSON structures onto PHP classes",
-            "time": "2017-01-27T21:01:41+00:00"
+            "time": "2017-07-13T19:08:45+00:00"
         },
         {
             "name": "paragonie/random_compat",
