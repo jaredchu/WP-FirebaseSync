@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bc7db8a942f2e1f0d8ab42ad24d39de",
+    "content-hash": "a513d7c6667a095c1e7bc961178f265a",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -323,16 +323,16 @@
         },
         {
             "name": "jaredchu/simple-cache",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jaredchu/Simple-Cache.git",
-                "reference": "9b4a2a0603df6082767df661c46dbe41d9123c29"
+                "reference": "e64f370d84c01804d5b78b97846702e6efb8dce6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jaredchu/Simple-Cache/zipball/9b4a2a0603df6082767df661c46dbe41d9123c29",
-                "reference": "9b4a2a0603df6082767df661c46dbe41d9123c29",
+                "url": "https://api.github.com/repos/jaredchu/Simple-Cache/zipball/e64f370d84c01804d5b78b97846702e6efb8dce6",
+                "reference": "e64f370d84c01804d5b78b97846702e6efb8dce6",
                 "shasum": ""
             },
             "require": {
@@ -362,7 +362,7 @@
                 "cache",
                 "php"
             ],
-            "time": "2017-08-10T02:51:26+00:00"
+            "time": "2017-08-10T05:20:21+00:00"
         },
         {
             "name": "jeremykendall/php-domain-parser",

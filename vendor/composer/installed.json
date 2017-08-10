@@ -518,17 +518,17 @@
     },
     {
         "name": "jaredchu/simple-cache",
-        "version": "v1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "v1.0.1",
+        "version_normalized": "1.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/jaredchu/Simple-Cache.git",
-            "reference": "9b4a2a0603df6082767df661c46dbe41d9123c29"
+            "reference": "e64f370d84c01804d5b78b97846702e6efb8dce6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jaredchu/Simple-Cache/zipball/9b4a2a0603df6082767df661c46dbe41d9123c29",
-            "reference": "9b4a2a0603df6082767df661c46dbe41d9123c29",
+            "url": "https://api.github.com/repos/jaredchu/Simple-Cache/zipball/e64f370d84c01804d5b78b97846702e6efb8dce6",
+            "reference": "e64f370d84c01804d5b78b97846702e6efb8dce6",
             "shasum": ""
         },
         "require": {
@@ -537,7 +537,7 @@
         "require-dev": {
             "phpunit/phpunit": "5.7.*"
         },
-        "time": "2017-08-10T02:51:26+00:00",
+        "time": "2017-08-10T05:20:21+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
