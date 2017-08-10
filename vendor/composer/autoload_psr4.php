@@ -7,11 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
-    'JC\\' => array($vendorDir . '/jaredchu/jc-request/src'),
+    'JC\\' => array($vendorDir . '/jaredchu/jc-request/src', $vendorDir . '/jaredchu/simple-cache/src'),
     'JCFirebase\\' => array($vendorDir . '/jaredchu/jc-firebase-php/src'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
-    'Defuse\\Crypto\\' => array($vendorDir . '/defuse/php-encryption/src'),
 );

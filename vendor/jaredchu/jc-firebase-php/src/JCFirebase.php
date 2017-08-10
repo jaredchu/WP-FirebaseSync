@@ -10,8 +10,8 @@ namespace JCFirebase;
 
 use JC\JCRequest;
 use JC\JCResponse;
-use JCFirebase\Enums\RequestType;
 use JCFirebase\Enums\PrintType;
+use JCFirebase\Enums\RequestType;
 
 /**
  * Class JCFirebase
@@ -24,6 +24,9 @@ class JCFirebase
 
     public $rootPath;
 
+    /**
+     * @var array
+     */
     public $requestHeader = array(
         'accept' => 'application/json',
         'contentType' => 'application/json; charset=utf-8',
@@ -62,14 +65,7 @@ class JCFirebase
      */
     public static function fromJson($firebaseURI, $jsonString, $rootPath = '/')
     {
-        if ($jsonString) {
-            $serviceAccount = $jsonString->client_email;
-            $privateKey = $jsonString->private_key;
-
-            return new self($firebaseURI, new OAuth($privateKey, $serviceAccount), $rootPath);
-        } else {
-            throw new \Exception("can't get data from key file");
-        }
+        return new self($firebaseURI, OAuth::fromJson($jsonString), $rootPath);
     }
 
     /**
@@ -82,14 +78,7 @@ class JCFirebase
      */
     public static function fromKeyFile($firebaseURI, $keyFile, $rootPath = '/')
     {
-        $jsonString = null;
-        try {
-            $jsonString = json_decode(file_get_contents($keyFile));
-        } catch (\Exception $exception) {
-            $jsonString = json_decode(JCRequest::get($keyFile));
-        }
-
-        return self::fromJson($firebaseURI, $jsonString, $rootPath);
+        return new self($firebaseURI, OAuth::fromKeyFile($keyFile), $rootPath);
     }
 
     public function getPathURI($path = '', $print = '')
@@ -119,7 +108,7 @@ class JCFirebase
         //set query data
         $queryData = array();
         if (!empty($print)) {
-            $queryData[Option::_PRINT] = $print;
+            $queryData[Option::OPT_PRINT] = $print;
         }
         if (!empty($queryData)) {
             $pathURI = $pathURI . '?' . http_build_query($queryData);
@@ -134,7 +123,7 @@ class JCFirebase
     {
         return JCRequest::get(
             $this->getPathURI($path) . '?' . http_build_query(array(
-                Option::_SHALLOW => 'true'
+                Option::OPT_SHALLOW => 'true'
             )),
             $this->addDataToRequest($options),
             $this->requestHeader
@@ -224,7 +213,7 @@ class JCFirebase
     public function isValid()
     {
         return $this->get(null, array(
-                Option::_PRINT => PrintType::SILENT
+                Option::OPT_PRINT => PrintType::SILENT
             ))->status() == 204;
     }
 
@@ -236,10 +225,8 @@ class JCFirebase
     protected function addDataToPathURI($path = '', $options = array(), $reqType = RequestType::GET)
     {
         $print = '';
-        if (isset($options['print'])) {
-            if (Option::isAllowPrint($reqType, $options['print'])) {
-                $print = $options['print'];
-            }
+        if (isset($options[Option::OPT_PRINT]) && Option::isAllowPrint($reqType, $options['print'])) {
+            $print = $options[Option::OPT_PRINT];
         }
 
         return $this->getPathURI($path, $print);
@@ -247,16 +234,16 @@ class JCFirebase
 
     protected function addDataToRequest($options = array(), $jsonEncode = false)
     {
-        $requestOptions = array();
+        $requestData = array();
 
         if (isset($options['data'])) {
-            $requestOptions = array_merge($options['data'], $requestOptions);
+            $requestData = array_merge($options['data'], $requestData);
         }
 
         if ($jsonEncode) {
-            $requestOptions = json_encode($requestOptions);
+            $requestData = json_encode($requestData);
         }
 
-        return $requestOptions;
+        return $requestData;
     }
 }

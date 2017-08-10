@@ -13,9 +13,8 @@ License: MIT
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/classes/JC_Post.php';
 
+use JC\EncryptCache;
 use JCFirebase\JCFirebase;
-use JCFirebase\Models\FirebaseModel;
-use JCFirebase\OAuth as FBAuth;
 
 /**
  * Register menu
@@ -101,6 +100,8 @@ function wfs_settings_section_callback()
                 $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
 
                 if ($firebase->isValid()) {
+                    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE']);
+                    EncryptCache::add('firebase', $firebase);
                     echo "<span class='notice notice-success'>Firebase connect succeed</span>";
                 } else {
                     echo "<span class='notice notice-error'>Firebase connect failed</span>";
@@ -141,12 +142,18 @@ function wfs_options_page()
 
 function save_post_to_firebase($post_id)
 {
-    global $firebase;
+    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE']);
 
-    $options = get_option('wfs_settings');
-    $firebaseURI = $options['wfs_firebase_uri'];
-    $jsonKey = $options['wfs_firebase_json_key'];
-    $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
+    if (EncryptCache::exists('firebase')) {
+        $firebase = EncryptCache::fetch('firebase', JCFirebase::class);
+    } else {
+        $options = get_option('wfs_settings');
+        $firebaseURI = $options['wfs_firebase_uri'];
+        $jsonKey = $options['wfs_firebase_json_key'];
+        $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
+
+        EncryptCache::add('firebase', $firebase);
+    }
 
     // Cancel if this is just a revision or firebase is not set
     if (is_null($firebase) || wp_is_post_revision($post_id)) {
