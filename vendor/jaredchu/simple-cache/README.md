@@ -13,14 +13,27 @@ Simple PHP object caching base on temp file
 
 ## Usage
 
+#### Quick start
+```PHP
+use JC\SimpleCache;
+
+// store your object
+SimpleCache::add('your-key', new Person('Jared', 27));
+
+// check if exists
+SimpleCache::exists('your-key');
+
+// fetch your object
+$person = SimpleCache::fetch('your-key', Person::class);
+
+// remove your cache
+SimpleCache::remove('your-key');
+```
+
 #### Add
 ```PHP
 // cache object Person with lifetime 1000 seconds (default is 0, not expire)
-SimpleCache::add('your-key', new Person('Jared', 27),1000);
-
-// cache object Person and encrypt the data
-EncryptCache::setEncryptKey('secret');
-EncryptCache::add('your-key', new Person('Jared', 27));
+SimpleCache::add('your-key', new Person('Jared', 27), 1000);
 ```
 #### Fetch
 ```PHP
@@ -28,17 +41,20 @@ if(SimpleCache::exists('your-key')){
   $person = SimpleCache::fetch('your-key', Person::class);
   $person->sayHi();
 }
-
-// fetch data from enscrypt cache
-EncryptCache::setEncryptKey('secret');
-if(EncryptCache::exists('your-key')){
-  $person = EncryptCache::fetch('your-key', Person::class);
-  $person->sayHi();
-}
 ```
 #### Remove
 ```PHP
-SimpleCache::remove('your-key')
+SimpleCache::remove('your-key');
+```
+#### Security
+```PHP
+// your data is already encrypt but you can set your own encrypt key
+SimpleCache::setEncryptKey('your unique string');
+SimpleCache::add('your-key', new Person('Jared', 27));
+
+// you must set encrypt key again if you want to call fetch in another session
+SimpleCache::setEncryptKey('your unique string');
+$person = SimpleCache::fetch('your-key', Person::class);
 ```
 
 ## Contributing

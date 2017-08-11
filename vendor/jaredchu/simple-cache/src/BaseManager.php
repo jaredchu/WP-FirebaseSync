@@ -15,12 +15,12 @@ namespace JC;
  * Manage the list of caching file and object
  * Save in $cFilename
  */
-class CacheManager
+abstract class BaseManager
 {
     /**
      * @var string
      */
-    public static $cFileName = 'jc-simple-cache-list';
+    protected static $cFileName;
 
     /**
      * @param $cFileName
@@ -35,7 +35,7 @@ class CacheManager
      */
     public static function getCFileName()
     {
-        return static::$cFileName;
+        return static::$cFileName ?: static::getUniqueString();
     }
 
     /**
@@ -46,6 +46,21 @@ class CacheManager
     public static function getCFilePath()
     {
         return sys_get_temp_dir() . '/' . static::getCFileName();
+    }
+
+    /**
+     * Unique string for each server
+     * @param string $salt
+     * @return string
+     */
+    public static function getUniqueString($salt = '')
+    {
+        $uniqueString = __DIR__;
+        if (isset($_SERVER['SERVER_SIGNATURE'])) {
+            $uniqueString .= $_SERVER['SERVER_SIGNATURE'];
+        }
+
+        return md5($uniqueString . $salt);
     }
 
     /**
@@ -120,7 +135,7 @@ class CacheManager
     protected static function getCacheList()
     {
         if (file_exists(static::getCFilePath())) {
-            return json_decode(file_get_contents(static::getCFilePath()), true);
+            return static::decode(file_get_contents(static::getCFilePath()));
         }
 
         return array();
@@ -132,6 +147,24 @@ class CacheManager
      */
     protected static function setCacheList($cacheList)
     {
-        return (bool)file_put_contents(static::getCFilePath(), json_encode($cacheList));
+        return (bool)file_put_contents(static::getCFilePath(), static::encode($cacheList));
+    }
+
+    /**
+     * @param $array
+     * @return string
+     */
+    protected static function encode($array)
+    {
+        return json_encode($array);
+    }
+
+    /**
+     * @param $string
+     * @return array
+     */
+    protected static function decode($string)
+    {
+        return json_decode($string, true);
     }
 }

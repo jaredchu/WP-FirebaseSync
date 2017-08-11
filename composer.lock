@@ -323,16 +323,16 @@
         },
         {
             "name": "jaredchu/simple-cache",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jaredchu/Simple-Cache.git",
-                "reference": "e64f370d84c01804d5b78b97846702e6efb8dce6"
+                "reference": "0748a138a626883e5e8ae3bc1f6187a079d89dda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jaredchu/Simple-Cache/zipball/e64f370d84c01804d5b78b97846702e6efb8dce6",
-                "reference": "e64f370d84c01804d5b78b97846702e6efb8dce6",
+                "url": "https://api.github.com/repos/jaredchu/Simple-Cache/zipball/0748a138a626883e5e8ae3bc1f6187a079d89dda",
+                "reference": "0748a138a626883e5e8ae3bc1f6187a079d89dda",
                 "shasum": ""
             },
             "require": {
@@ -362,7 +362,7 @@
                 "cache",
                 "php"
             ],
-            "time": "2017-08-10T05:20:21+00:00"
+            "time": "2017-08-11T05:00:31+00:00"
         },
         {
             "name": "jeremykendall/php-domain-parser",

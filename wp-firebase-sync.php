@@ -13,7 +13,7 @@ License: MIT
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/classes/JC_Post.php';
 
-use JC\EncryptCache;
+use JC\SimpleCache;
 use JCFirebase\JCFirebase;
 
 /**
@@ -100,8 +100,8 @@ function wfs_settings_section_callback()
                 $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
 
                 if ($firebase->isValid()) {
-                    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE'] . $options['wfs_firebase_json_key']);
-                    EncryptCache::add('firebase', $firebase);
+                    SimpleCache::setEncryptKey($_SERVER['SERVER_SIGNATURE'] . $options['wfs_firebase_json_key']);
+                    SimpleCache::add('firebase', $firebase);
                     echo "<span class='notice notice-success'>Firebase connect succeed</span>";
                 } else {
                     echo "<span class='notice notice-error'>Firebase connect failed</span>";
@@ -143,16 +143,16 @@ function wfs_options_page()
 function save_post_to_firebase($post_id)
 {
     $options = get_option('wfs_settings');
-    EncryptCache::setEncryptKey($_SERVER['SERVER_SIGNATURE'] . $options['wfs_firebase_json_key']);
+    SimpleCache::setEncryptKey($_SERVER['SERVER_SIGNATURE'] . $options['wfs_firebase_json_key']);
 
-    if (EncryptCache::exists('firebase')) {
-        $firebase = EncryptCache::fetch('firebase', JCFirebase::class);
+    if (SimpleCache::exists('firebase')) {
+        $firebase = SimpleCache::fetch('firebase', JCFirebase::class);
     } else {
         $firebaseURI = $options['wfs_firebase_uri'];
         $jsonKey = $options['wfs_firebase_json_key'];
         $firebase = JCFirebase::fromJson($firebaseURI, json_decode($jsonKey));
 
-        EncryptCache::add('firebase', $firebase);
+        SimpleCache::add('firebase', $firebase);
     }
 
     // Cancel if this is just a revision or firebase is not set
