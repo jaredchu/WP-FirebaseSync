@@ -24,6 +24,11 @@ class FirebaseModel
     public static $nodeName = '';
 
     /**
+     * @var array
+     */
+    public static $maps = [];
+
+    /**
      * @var string
      */
     public $key;
@@ -43,14 +48,36 @@ class FirebaseModel
         $this->firebase = $firebase;
     }
 
+    /**
+     * @return string
+     */
     public static function getNodeName()
     {
         return static::$nodeName ?: strtolower((new \ReflectionClass(get_called_class()))->getShortName());
     }
 
+    /**
+     * @param $nodeName
+     */
     public static function setNodeName($nodeName)
     {
         static::$nodeName = $nodeName;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getMaps()
+    {
+        return static::$maps;
+    }
+
+    /**
+     * @param array $maps
+     */
+    public static function setMaps($maps)
+    {
+        static::$maps = $maps;
     }
 
     /**
@@ -62,7 +89,7 @@ class FirebaseModel
         unset($object->firebase);
         unset($object->key);
 
-        return get_object_vars($object);
+        return static::mapAttributes(get_object_vars($object));
     }
 
     /**
@@ -124,8 +151,7 @@ class FirebaseModel
         $response = $firebase->get(self::getNodeName() . '/' . $key);
         $object = null;
         if ($response->success() && $response->body() != 'null') {
-            $mapper = new JsonMapper();
-            $object = $mapper->map($response->json(), new static());
+            $object = self::map($response->json(), new static());
             $object->key = $key;
             $object->firebase = $firebase;
         }
@@ -146,8 +172,7 @@ class FirebaseModel
         $jsonObject = json_decode($response->body(), true);
         if ($response->success() && count($jsonObject)) {
             do {
-                $mapper = new JsonMapper();
-                $object = $mapper->map((object)current($jsonObject), new static());
+                $object = self::map((object)current($jsonObject), new static());
                 $object->key = key($jsonObject);
                 $object->firebase = $firebase;
                 $objects[] = $object;
@@ -155,5 +180,36 @@ class FirebaseModel
         }
 
         return $objects;
+    }
+
+    /**
+     * @param $object
+     * @param $instance
+     * @return object
+     */
+    protected static function map($object, $instance)
+    {
+        $mapper = new JsonMapper();
+        return $mapper->map((object)static::mapAttributes(get_object_vars($object), false), $instance);
+    }
+
+    /**
+     * @param array $objectVars
+     * @param bool $fromLocal
+     * @return array
+     */
+    protected static function mapAttributes(array $objectVars, $fromLocal = true)
+    {
+        foreach (static::$maps as $localAttr => $DBAttr) {
+            if ($fromLocal) {
+                $objectVars[$DBAttr] = $objectVars[$localAttr];
+                unset($objectVars[$localAttr]);
+            } else {
+                $objectVars[$localAttr] = $objectVars[$DBAttr];
+                unset($objectVars[$DBAttr]);
+            }
+        }
+
+        return $objectVars;
     }
 }

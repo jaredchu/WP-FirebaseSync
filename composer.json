@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "jaredchu/jc-firebase-php": "^1.0",
+    "jaredchu/jc-firebase-php": "^1.1.3",
     "jaredchu/simple-cache": "^1.0.1"
   }
 }

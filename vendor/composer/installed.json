@@ -470,53 +470,6 @@
         "description": "Map nested JSON structures onto PHP classes"
     },
     {
-        "name": "jaredchu/jc-firebase-php",
-        "version": "v1.1.2",
-        "version_normalized": "1.1.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/jaredchu/JC-Firebase-PHP.git",
-            "reference": "73aedc5fa6c7afefe5f3faa11a2a25e8f4f6190b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/jaredchu/JC-Firebase-PHP/zipball/73aedc5fa6c7afefe5f3faa11a2a25e8f4f6190b",
-            "reference": "73aedc5fa6c7afefe5f3faa11a2a25e8f4f6190b",
-            "shasum": ""
-        },
-        "require": {
-            "firebase/php-jwt": "^4.0",
-            "jaredchu/jc-request": "^1.0",
-            "netresearch/jsonmapper": "^1.1"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "5.6.*"
-        },
-        "time": "2017-08-03T09:59:19+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "JCFirebase\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jared Chu",
-                "email": "jared@vmcsoft.com"
-            }
-        ],
-        "description": "Firebase PHP RESTful library",
-        "keywords": [
-            "firebase",
-            "restful"
-        ]
-    },
-    {
         "name": "jaredchu/simple-cache",
         "version": "v1.0.2",
         "version_normalized": "1.0.2.0",
@@ -559,6 +512,53 @@
         "keywords": [
             "cache",
             "php"
+        ]
+    },
+    {
+        "name": "jaredchu/jc-firebase-php",
+        "version": "v1.1.3",
+        "version_normalized": "1.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jaredchu/JC-Firebase-PHP.git",
+            "reference": "f72cad113b79a8bbd670c97d4034d8ca79a5c683"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jaredchu/JC-Firebase-PHP/zipball/f72cad113b79a8bbd670c97d4034d8ca79a5c683",
+            "reference": "f72cad113b79a8bbd670c97d4034d8ca79a5c683",
+            "shasum": ""
+        },
+        "require": {
+            "firebase/php-jwt": "^4.0",
+            "jaredchu/jc-request": "^1.0",
+            "netresearch/jsonmapper": "^1.1"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "5.6.*"
+        },
+        "time": "2017-08-14T04:11:54+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "JCFirebase\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jared Chu",
+                "email": "jared@vmcsoft.com"
+            }
+        ],
+        "description": "Firebase PHP RESTful library",
+        "keywords": [
+            "firebase",
+            "restful"
         ]
     }
 ]
