@@ -16,6 +16,12 @@ class JC_Post extends FirebaseModel
 {
     public static $nodeName = 'posts';
 
+    public static $maps = [
+        'post_author' => 'author',
+        'comment_count' => 'cm_number',
+        'post_date' => 'date'
+    ];
+
     /**
      * Post ID.
      *
