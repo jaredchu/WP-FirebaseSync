@@ -15,30 +15,11 @@ use JC\Enums\Method;
 
 class JCRequest implements iJCRequest
 {
-    public static function request($method, $url, $options)
+    public static function request($method, $url, $guzzleOptions)
     {
-        if (isset($options['params'])) {
-            $params = $options['params'];
-            unset($options['params']);
-
-            if (is_array($params)) {
-                $options['form_params'] = $params;
-            }
-            if (is_string($params)) {
-                $options['json'] = json_decode($params);
-            }
-        }
-
-        return new JCResponse((new Client())->request($method, $url, $options));
+        return new JCResponse((new Client())->request($method, $url, static::manipulateParams($guzzleOptions)));
     }
 
-    /**
-     * @param $url
-     * @param array $headers
-     * @param array $params
-     * @param array $options
-     * @return JCResponse
-     */
     public static function get($url, $params = null, $headers = [], $options = [])
     {
         return static::request(Method::GET, is_array($params) ? static::manipulateUrl($url, $params) : $url, [
@@ -78,7 +59,7 @@ class JCRequest implements iJCRequest
         ]);
     }
 
-    public static function head($url, $params = null, $headers = [], $options = [])
+    public static function head($url, $headers = [], $options = [])
     {
         return static::request(Method::HEAD, $url, [
             'headers' => $headers,
@@ -86,6 +67,8 @@ class JCRequest implements iJCRequest
     }
 
     /**
+     * Manipulate the url & params for GET request
+     *
      * @param string $url
      * @param array $params
      * @return string
@@ -97,5 +80,30 @@ class JCRequest implements iJCRequest
         $urlObject->query->setData($queryData);
 
         return $urlObject->getUrl();
+    }
+
+    /**
+     * @param array $guzzleOptions
+     * @return array
+     */
+    protected static function manipulateParams($guzzleOptions)
+    {
+        if (isset($guzzleOptions['params'])) {
+            $params = $guzzleOptions['params'];
+            unset($guzzleOptions['params']);
+
+            if (is_array($params)) {
+                $guzzleOptions['form_params'] = $params;
+            } else {
+                $jsonObject = json_decode($params);
+                if (json_last_error() == JSON_ERROR_NONE) {
+                    $guzzleOptions['json'] = $jsonObject;
+                } else {
+                    $guzzleOptions['body'] = $params;
+                }
+            }
+        }
+
+        return $guzzleOptions;
     }
 }

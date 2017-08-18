@@ -7,15 +7,16 @@
  * Time: 4:07 PM
  */
 
+require(__DIR__.'/../vendor/autoload.php');
+
 use JCFirebase\Enums\PrintType;
 use JCFirebase\JCFirebase;
-use JCFirebase\OAuth;
 use JCFirebase\Option;
 
 class JCFirebaseTest extends PHPUnit_Framework_TestCase
 {
     const FIREBASE_URI = 'https://fir-php-test-c7fa2.firebaseio.com/';
-    const KEY_FILE = __DIR__ . '/../resource/firebase-php-test-0a49b34e5f4a.json';
+    const KEY_FILE = '/../resource/firebase-php-test-0a49b34e5f4a.json';
 
     /**
      * @var JCFirebase
@@ -24,7 +25,7 @@ class JCFirebaseTest extends PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$firebase = JCFirebase::fromKeyFile(self::FIREBASE_URI, self::KEY_FILE);
+        self::$firebase = JCFirebase::fromKeyFile(self::FIREBASE_URI, __DIR__ . self::KEY_FILE);
     }
 
     public function testGetPathURI()
